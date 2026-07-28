@@ -1,0 +1,39 @@
+taskkill /F /IM dart.exe
+
+dart_frog dev --hostname 0.0.0.0
+
+ngrok http 8080
+
+tree /F lib  
+
+ctrl+ shift + f
+
+tree /F /A > tree.txt
+
+dart test test/rag_pipeline/semantic_cluster_expander_test.dart
+
+dart test
+
+git --no-pager diff --color-moved=zebra -w -- lib/rag_pipeline/rag_orchestrator.dart
+
+dart analyze
+
+dart analyze 2>&1 | Select-String -Pattern "error"
+
+dart run tool/llm_eval.dart
+
+dart run tool/llm_eval.dart 10
+
+flutter analyze
+
+dart run tool/export_store_fixture.dart
+
+http://localhost:8080/health
+
+dart run tool/list_models.dart
+
+
+dart run tool/prompt_budget.dart Zara
+
+
+dart run tool/audit_store_fields.dart Zara --scan ..\smart_kiosk_app ..\store_admin_panel
