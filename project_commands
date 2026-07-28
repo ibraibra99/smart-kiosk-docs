@@ -32,8 +32,6 @@ http://localhost:8080/health
 
 dart run tool/list_models.dart
 
-
 dart run tool/prompt_budget.dart Zara
-
 
 dart run tool/audit_store_fields.dart Zara --scan ..\smart_kiosk_app ..\store_admin_panel
