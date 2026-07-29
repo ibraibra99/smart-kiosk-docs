@@ -1,0 +1,8 @@
+1.2 — تفكيك processUserMessage
+• لماذا: دالّةٌ واحدةٌ بعشرين مسؤوليّةً داخل كتلة try واحدة — لا يمكن اختبار أيّ مسارٍ (block / handoff / satisfied / bypass) بمعزل.
+• كيف:
+A. حوّل كلّ مرحلةٍ إلى دالّةٍ/وحدةٍ تأخذ وتُعيد بنية سياقٍ صغيرة (context struct).
+B. لا تغيّر المنطق أثناء التفكيك — نقلٌ فقط، ثمّ اختبار، ثمّ تحسين.
+C. رتّب: guardrails → extraction → intent-guard → context-restore → preconditions → plugin-loop → owner → retrieval → generation → persist.
+• معيار الإنجاز: كلّ مسارٍ حرجٍ قابلٌ للاستدعاء والاختبار وحده دون بناء العالم كلّه.
+• الحجم: 3–5 أيام (يستفيد من وجود اختبارات 1.1 كشبكة أمان أثناء النقل).
