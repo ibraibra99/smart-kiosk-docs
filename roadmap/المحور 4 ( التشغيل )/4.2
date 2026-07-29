@@ -1,0 +1,24 @@
+4.2 — الأسرار وفصل البيئات dev / prod
+
+• الحالة اليوم:
+– GEMINI_API_KEY في .env محلّيّ.
+– ملفّ حساب الخدمة على القرص (GcpCredentials.load()).
+– projectId = 'gen-lang-client-0796657773' مكتوبٌ حرفيّاً في ثلاثة
+ملفّات (store_context, data_retrieval, analytics,
+memory_consolidation) — فلا سبيل لتبديل البيئة أصلاً.
+
+• كيف:
+(أ) projectId من البيئة → مصدرٌ واحد (نمط ModelRegistry/Timeouts).
+حارسٌ آليٌّ يمنع عودته للكود — نفس نمط حارس أسماء النماذج.
+(ب) الأسرار إلى Secret Manager لا ملفّاتٍ على القرص.
+(ج) مشروعا GCP منفصلان (أو قاعدتا بياناتٍ منفصلتان كحدٍّ أدنى).
+(د) .env.example موثَّقٌ في الريبو بكلّ المتغيّرات (بلا قيم):
+GEMINI_API_KEY · GCP_PROJECT_ID · LOG_FORMAT · MODEL_* ·
+TIMEOUT_* · TURN_BUDGET_SECONDS · MAX_PRODUCT_PAGES ·
+HEALTH_DEGRADED_PCT · GEMINI_PRICE_*
+📌 هذه المتغيّرات تراكمت عبر البنود 2.3 و3.0 و3.2 — وبلا توثيقٍ واحدٍ
+لن يعرف أحدٌ (ولا أنت بعد شهرين) ما المتاح ضبطُه.
+
+• معيار الإنجاز: تبديل البيئة = متغيّرٌ واحد؛ صفر سرٍّ في الريبو؛ صفر
+projectId مكتوبٍ في الكود.
+• الحجم: يومان.
