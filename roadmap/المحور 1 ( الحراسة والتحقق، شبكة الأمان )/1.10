@@ -1,0 +1,20 @@
+1.10 — قاعدتان جديدتان في مدقّق العقود
+
+الشدّة: 🟡 متوسط. الفصل: توسيع 1.4-C (نفس ملفّ manifest_validator.dart).
+
+من الثوابت المعلَنة في _schema_docs والتي «لا يفرضها المحمّل»، ثمانيةٌ مُشفَّرةٌ
+بالفعل — وبقي اثنان قابلان للفحص آلياً بالكامل:
+
+القاعدة ٩ — produces_without_consumer:
+مفتاحٌ في context_contract.produces لا تقرؤه أيّ ميزةٍ عبر consumes.from_context
+= جسرٌ إلى لا مكان. الوثيقة تنصّ صراحةً: «الأسماء يجب أن تتطابق بين المنتِج
+والمستهلِك». (إنذارٌ لا خطأ — قد يكون المستهلك ميزةً قادمة.)
+
+القاعدة ١٠ — from_source_unreachable:
+خانةٌ from_context لها مسارٌ متداخل (customer_measurements.height) ومعها
+from_source — الوثيقة تقول: كتلة الاستعادة تقرأ ctx[readKey] كمفتاحٍ مباشر فلا
+تتنقّل في التداخل، فالخانة تُحفَظ ولا تُقرَأ وfrom_source قيمةٌ ميّتة.
+الفحص: fromContext.contains('.') && fromSource.isNotEmpty → إنذار.
+
+معيار الإنجاز: القاعدتان مضافتان بمعرّفَين ثابتين + حالتا اختبارٍ لكلٍّ
+(موجبةٌ وسالبة) في manifest_validator_rules_test.dart · store_doctor يعرضهما.
