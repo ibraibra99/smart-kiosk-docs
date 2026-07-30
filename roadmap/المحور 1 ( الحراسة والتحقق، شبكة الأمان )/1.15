@@ -1,0 +1,82 @@
+1.15 — مساعِدُ استدعاءٍ للاختبارات: ضريبةُ عقد المايسترو الطويل
+
+الشدّة: ⚪ منخفض — لا عطب. لكنّها ضريبةٌ تُدفَع في كلّ تعديلٍ للعقد.
+الفصل: 4.x. إعادةُ هيكلةٍ في طبقة الاختبار وحدها — أأمن أصناف التغيير.
+
+الدليل — دُفعت مرّتين في جولةٍ واحدة
+
+
+التعديل
+المواضع المكسورة
+الأثر
+
+بند 0.8 — تغيير شكل record في fetchMemoryState
+٩ نسخٍ مزيَّفة
+جولتان من التصحيح
+
+بند 0.5-D — إسقاط ثلاث وسائط
+١٧ استدعاءً × ٣ = ٥١ خطأً
+ثلاث جولات
+
+
+
+والتصحيح الميكانيكيّ ليس مجّانياً: الاستبدال الشامل أنتج خطأً نحويّاً في سطرٍ
+واحد (expectedFieldsOverrideOverride)، وأصاب خمسة استدعاءاتٍ لدالّةٍ أخرى
+(consolidateMemory تطلب storeType وما زالت كذلك) — فاحتاج تراجعاً موجّهاً.
+
+السبب الجذريّ
+
+processUserMessage عقدٌ عريض: ~١٥ وسيطاً، منها ثوابتُ اختبارٍ تتكرّر حرفيّاً في
+كلّ حالة (storeName · sessionId · userId · memoryEligible · …). فأيّ تغييرٍ
+في العقد يضرب كلّ موضعٍ يكرّرها.
+
+الإصلاح المقترح — مساعِدان في test/support/mock_services.dart
+
+dart
+/// 🧪 استدعاءُ دورٍ اختباريّ — الثوابت في موضعٍ واحد.
+///    أيّ تغييرٍ في عقد processUserMessage يلمس هذا الملفّ وحده لا كلّ حالة.
+Future<Map<String, dynamic>> runTestTurn(
+  RAGOrchestrator o, {
+  required String userQuery,
+  String storeName = 'TestStore',
+  String? sessionId = 'test-session',
+  String? userId,
+  bool memoryEligible = false,
+  String? activeFeatureFromUI,
+  String clientShoppingState = '',
+  String? imageBase64,
+  FeatureEntry? featureEntry,
+  String? fromFeature,
+  List<String> carriedPieces = const <String>[],
+  // 🔒 [0.5-D] تجاوزاتٌ للاختبار وحده — لا تمرّرها إلا حين تفحص أثرها.
+  String? storeTypeOverride,
+  String? aiPersonaOverride,
+  List<String>? expectedFieldsOverride,
+}) =>
+    o.processUserMessage(/* … تمريرٌ حرفيّ … */);
+
+/// 🧠 [0.8] تفضيلات ذاكرةٍ غير مُصرَّحة — الحالة الافتراضيّة لأغلب الاختبارات.
+///    يخفي شكل الـrecord، فتغييرُه لاحقاً يلمس موضعاً واحداً لا تسعة.
+({bool? readPref, bool? writePref, String memory}) unsetMemoryPrefs({
+  String memory = '',
+}) => (readPref: null, writePref: null, memory: memory);
+
+
+⚠️ بوّابة — وهي أبسط ما في القائمة
+
+إعادةُ هيكلةٍ في الاختبارات لا في الإنتاج. معيار النجاح: عدّاد الاختبارات لا
+يتغيّر بحرفٍ واحد (٤٧٧ قبل و٤٧٧ بعد)، وصفر أخطاء dart analyze. أيّ تغيّرٍ في
+العدد يعني أنّ حالةً فُقدت أو تكرّرت.
+
+🔭 وإصلاحٌ أعمقُ لا أوصي به الآن
+
+المساعِد يُخفي العقد العريض ولا يُصلحه. الأعمق: كائنُ سياقٍ للطلب
+(TurnRequest) يجمع الوسائط، فيصير التوقيع processUserMessage(TurnRequest r).
+يفيد الإنتاج والاختبار معاً — لكنّه يلمس chat.dart والمايسترو وكلّ الاختبارات في
+جولةٍ واحدة. المساعِد يشتري ٩٠٪ من الفائدة بـ١٠٪ من المخاطرة؛ والكائن يستحقّ
+بنداً منفصلاً إن تكرّر الألم ثالثةً.
+
+معيار الإنجاز
+
+صفر تكرارٍ للثوابت في rag_orchestrator_test · عدّاد الاختبارات ثابت · وتعديلٌ
+تجريبيٌّ في عقد المايسترو يكسر موضعاً واحداً لا سبعة عشر.
