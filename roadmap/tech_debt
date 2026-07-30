@@ -1,0 +1,12 @@
+docs\roadmap\tech_debt.md:10:- [ ] الاستيراد الدائريّ مع `manifest_validator`
+docs\roadmap\tech_debt.md:11:- [ ] `_parseFirestoreValue` مكرَّرٌ في أربعة مواضع
+docs\roadmap\tech_debt.md:14:- [ ] `apiKey` ميّت — يُمرَّر ويُخزَّن ولا يُستعمَل
+docs\roadmap\tech_debt.md:18:- [ ] مرحلة البحث → `rag_orchestrator_search.dart` (~110 سطراً)
+docs\roadmap\tech_debt.md:19:- [ ] منطق قصّ 1500 حرفٍ المكرّر → دالّةٌ واحدة
+docs\roadmap\tech_debt.md:20:- [ ] `// ignore_for_file: unused_import` في السطر الأوّل — يُخفي استيراداتٍ ميتة
+docs\roadmap\tech_debt.md:21:- [ ] تعليقاتٌ متعفّنة: «await على logSearchAnalytics» (أُزيل في 3.2-ج)
+docs\roadmap\tech_debt.md:24:- [ ] `verdict` النصّيّ (block/ask/proceed/none) → enum
+docs\roadmap\tech_debt.md:27:- [ ] رقصة مفاتيح `has_` → دالّةٌ مساعدةٌ واحدة
+docs\roadmap\tech_debt.md:28:- [ ] `aiInstructions` ميّتٌ في النموذج (٩ ملفات · ٢٤ موضعاً)
+docs\roadmap\tech_debt.md:30:- [ ] `only_throw_errors` في fakes الاختبار
+docs\roadmap\tech_debt.md:31:- [ ] `store_doctor`: عتبة التشابه لها عطبٌ صامت (تفوّت خطأً مطبعياً)
