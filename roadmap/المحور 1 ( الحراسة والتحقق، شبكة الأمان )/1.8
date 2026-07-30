@@ -1,67 +1,53 @@
-1.8 — مطبّع عربيٌّ مشترك + إخراج فئات المقاسات من الكود
+1.8 — اشتقاق feature_plugin_data_map من السجلّ
 
-الشدّة: 🟠 عالٍ — سقوطٌ صامتٌ في الإنتاج + خرقٌ لمبدأ «الكود ديناميكيّ لأيّ متجر».
-الفصل: 3.x (نفس عائلة معيار «قائمة الـplugins كودٌ لا بيانات»).
-
-شقّان
-
-(أ) sizing_category_map مبنيٌّ على ١٣ تهجئةً يدويّة — بلوزة/بناطيل/بنطال/
-بنطلون/تي شيرت/تيشيرت/جينز/سترة/شورت/فساتين/فستان/قمصان/قميص. أيّ صيغةٍ غير مدرجة
-(«بنطلونات»، «قميصٍ» بتنوين، «القميص» بأل، «تى شيرت» بالياء) تسقط صامتةً.
-
-(ب) الأخطر — سلّم فئاتٍ عربيٍّ مكتوبٌ داخل apparel_sizing_plugin.execute:
+الشدّة: ⚪ منخفض.
+الإصلاح
 
 dart
-if (rawCategory.contains("فستان") || rawCategory.contains("فساتين") ...) → "Dresses";
-else if (rawCategory.contains("قميص") || ... "تيشيرت" || "بلوزة" || "سترة") → "Shirts";
-else if (rawCategory.contains("بنطال") || "بنطلون" || "سروال" || "جينز" || "شورت") → "Pants";
-else if (rawCategory.contains("حذاء") || "أحذية") → "Shoes";
-
-
-هذه بياناتُ متجرٍ في كودٍ يُفترض أنّه عامّ. متجرٌ يبيع العبايات أو الأحذية
-الرياضيّة أو ملابس الأطفال يحتاج تعديل ملفّ Dart — وهو بالضبط ما تتفاداه
-معماريّتك في كلّ مكانٍ آخر. (ونظيره في البيانات: مفتاح knowledge.Zara — اسم علامةٍ
-تجاريّةٍ داخل عقد ميزةٍ يُفترض أنّه عامّ؛ المفتاح يجب أن يكون عامّاً والقيمة خاصّة.)
-
-الإصلاح المقترح
-
-(١) وحدةٌ نقيّةٌ مشتركة ( أنشأت ✅️ )  — lib/core/arabic_text.dart:
-
-dart
-String normalizeAr(String s);
-
-
-• تجريد التشكيل (U+064B–U+0652) والتطويل (U+0640)
-• توحيد أ إ آ ٱ → ا · ة → ه · ى → ي · ؤ → و · ئ → ي
-• إسقاط ال التعريف في بداية الكلمة
-• توحيد المسافات وقصّ الأطراف
-
-(٢) نقل سلّم الفئات إلى manifest.knowledge لميزة المقاسات:
-
-json
-"category_normalization": {
-  "Dresses": ["فستان", "فساتين"],
-  "Shirts":  ["قميص", "قمصان", "تيشيرت", "بلوزة", "سترة"],
-  "Pants":   ["بنطال", "بنطلون", "سروال", "جينز", "شورت"],
-  "Shoes":   ["حذاء", "أحذية"]
+// lib/features/core/plugin_registry.dart
+Map<String, List<String>> pluginDataMapFromRegistry() {
+  final out = <String, List<String>>{};
+  for (final FeaturePlugin p in buildPlugins()) {
+    if (p.family.isEmpty || p.sub.isEmpty || p.intentKeys.isEmpty) continue;
+    final String clean = '$`{p.sub}_`${p.family}';
+    out[clean] = List<String>.unmodifiable(p.intentKeys);
+    out['has_$`clean'] = List<String>.unmodifiable(p.intentKeys);
+  }
+  return out;
 }
 
-والملحق يطابق بالمطبّع على الطرفين. صفر عربيّةٍ في الكود.
 
-(٣) توحيد sizing_category_map على المطبّع نفسه — فتختفي الحاجة لـ١٣ صفّاً
-(تكفي الصيغة الأساسيّة لكلّ فئة).
+ودمجٌ لا استبدال: {...pluginDataMapFromRegistry(), ...rowyOverrides}.
+(اليوم خريطة Rowy تستبدل الاحتياطيّ كلّياً، فناقصةٌ تُعطّل ميزاتٍ بصمت.)
 
-مستهلكون آخرون يستفيدون مجّاناً
+🔴 الفرق عن المشفّر — يجب أن يمرّ ببوّابة
 
-OccasionRecommendationService.processOccasion · FashionSearchService.optimizeFilters
-(قاموس categories) · وميزة info/store الجديدة.
 
-⚠️ بوّابة
+المفتاح
+المشفّر
+المشتقّ
 
-تطبيق المطبّع على occasion_mappingيوسّع المطابقة — قد يطابق ما لم يكن يطابق.
-تغييرٌ مرغوبٌ لكنّه تغيير: بوّابة E1–E7 بـN=5 + حالاتٌ جديدة للصيغ الشاذّة.
+has_outfit_pairing
+✅
+✅
 
-معيار الإنجاز
+outfit_pairing (الصيغة النظيفة)
+❌ غائب
+➕ يُضاف
 
-«بنطلونات»، «القميص»، «تى شيرت»، «فستانٍ» تُطابِق فئاتها · صفر سلسلةٍ عربيّةٍ في
-apparel_sizing_plugin.dart · متجرٌ جديدٌ يضيف فئةً من Rowy وحدها.
+has_occasion_recommendation
+❌ غائب
+➕ يُضاف
+
+classic_search → occasion
+✅
+❌ لا يُشتقّ — انقله كتجاوز Rowy
+
+fashion_search → occasion
+✅
+❌ لا يُشتقّ — انقله كتجاوز Rowy
+
+
+
+والصيغة النظيفة هي الحالة الشائعة (أزرار الترحيب تضبط currentActiveFeature
+بالاسم النظيف).
