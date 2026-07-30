@@ -1,0 +1,44 @@
+1.9 — 
+ imageUrl / image_url — تهجئتان، وصورٌ تسقط صامتةً
+
+الشدّة: 🟠 عالٍ — عطبٌ صامتٌ يراه الزبون.
+
+البرهان
+
+وثيقة المنتج تحمل الحقلين، كليهما اختياريّ:
+imageUrl: string ? وimage_url: string ?.
+
+وresponse_generation_service يقرأ واحداً فقط:
+
+dart
+final String imageUrl = (p['image_url'] ?? '').toString().trim();
+if (pid.isNotEmpty && imageUrl.isNotEmpty) idToImageUrl[pid] = imageUrl;
+
+
+فمنتجٌ يحمل imageUrl (camelCase) وحده لا يدخل الجدول. ثمّ يكتب الـLLM
+![...](@@id@@) فلا يجد حارس الصور مُعرّفه:
+
+dart
+print("🖼️ [Image Guard] Dropped image with unknown id '`$pid' ...");
+return ''; // تُحذَف الصورة
+
+
+النتيجة: منتجاتٌ سليمةٌ تُعرَض بلا صورة، والسبب مدفونٌ في سطر لوغ يبدو كحمايةٍ
+من الهلوسة لا كعطب بيانات.
+
+الإصلاح المقترح — ثلاث مراحل
+
+1. فوراً (سطرٌ واحد، صفر مخاطرة): قراءةٌ متسامحة
+p['image_url'] ?? p['imageUrl'] — نفس نمط القراءة المزدوجة في المحمّل.
+2. ترحيلٌ: توحيد البيانات على image_url (ما يقرؤه الكود).
+3. حراسة: فحصٌ في tool/audit_store_fields.dart يُبلّغ عن كلّ منتجٍ بلا الحقل
+القانونيّ، وعن أيّ منتجٍ يحمل الحقلين معاً بقيمتين مختلفتين.
+
+ملاحظةٌ أوسع: مخطّط المنتج مختلَط الأعراف (imageUrl, productId,
+keyIngredients, makeupType بـcamelCase مقابل image_url بـsnake_case). قرارٌ
+يستحقّ التوثيق ولو لم يُرحَّل الآن — أيّ عرفٍ هو القانونيّ في المنتجات؟
+
+معيار الإنجاز
+
+صفر منتجٍ في top_products بلا صورةٍ بسبب اسم الحقل · وسطرُ «Dropped image with
+unknown id» يعود ليعني ما يقوله (هلوسة) لا عطب بيانات.
