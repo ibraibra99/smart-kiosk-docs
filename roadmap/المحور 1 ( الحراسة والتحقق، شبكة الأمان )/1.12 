@@ -1,0 +1,15 @@
+1.12 — search/makeup نصف مفعّلة
+
+الشدّة: ⚪ منخفض. الفصل: 1.4 أو 5.x.
+
+عقد search/makeup في Rowy يحمل ثلاثة أقسامٍ فقط: knowledge · meta ·
+understanding. بلا entry ولا context_contract ولا exit ولا ux — بينما
+MakeupSearchPlugin مسجَّلٌ في buildPlugins() وله ملحقٌ وخدمةٌ ومسارٌ واختبار.
+
+القواعد الحاليّة لا تلتقط هذا: لا required في consumes ⇒ القاعدتان ١ و٢ تصمتان.
+
+الإصلاح: قاعدة incomplete_active_feature — ميزةٌ meta.is_active = true وينقصها
+context_contract أو exit ⇒ إنذار. أو ببساطة is_active: false حتى تكتمل.
+
+وبندٌ ملازم: تأكيد أنّ MakeupSearchPlugin يعلن family = 'search' و
+sub = 'makeup' — يعتمد عليه اشتقاق behaviorMapFromRegistry().
