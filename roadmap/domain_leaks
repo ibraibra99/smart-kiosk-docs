@@ -1,0 +1,210 @@
+PS C:\Users\User\kiosk_backend> Get-ChildItem -Path lib -Recurse -Filter "*.dart" |
+>>   Select-String -Pattern "ستايلست|أناقة|أزياء|قميص|بنطال|فستان|حذاء|مكياج|موظّفي الفرع|Shirts|Pants|Dresses|Shoes"
+
+lib\core\arabic_text.dart:7:// │ • الغرض: أن يطابق «القميص» و«قميصٌ» و«قمـيص» نفسَ المدخل «قميص»، فلا تسقط  │
+lib\core\arabic_text.dart:13:// │   ❌ جمع التكسير («بناطيل» ← «بنطال»)، والاشتقاق، والمترادفات الدلاليّة —    │
+lib\core\arabic_text.dart:17:// │ 📌 لا نجرّد «ال» التعريف عمداً: المطابقة بالاحتواء تتكفّل به («القميص»       │
+lib\core\arabic_text.dart:18:// │    تحتوي «قميص»)، وتجريدُه يفسد كلماتٍ تبدأ بها طبيعياً («ألوان» ← «وان»).  │
+lib\core\arabic_text.dart:52:/// عشوائيّة. مثال: `normalizeAr('الْقَمِيصُ') == 'القميص'` وتحتوي `'قميص'`.
+lib\core\arabic_text.dart:101:/// «أريد قميصاً» ضدّ «قميص»، و«قميص» ضدّ «قميص رجاليّ».
+lib\core\model_registry.dart:102:    // 👕 بحث الأزياء — البحث الأمّ، أبسط المهامّ الحواريّة.
+lib\core\model_registry.dart:107:    // 💄 بحث المكياج — نظير بحث الأزياء لقطاعٍ آخر.
+lib\core\prompt_templates.dart:9:    return "\n🛑🛑 [أمر بالغ الأهمية - الفلاتر الإلزامية ووراثة السياق]: المتجر يتطلب 
+بشكل إجباري معرفة هذه الخصائص: [${requiredFilters.join(", ")}].\nقبل أن تسأل الزبون عن أي فلتر ناقص، **يجب عليك فحص سجل 
+المحادثة بالكامل**. إذا كان الزبون قد حدد الفلتر الإلزامي سابقاً (مثلاً اختار 'رجالي' أو 'نسائي' في سؤال سابق)، **يجب 
+عليك وراثة هذا الفلتر واستخدامه للمنتجات الجديدة تلقائياً** ووضعه في `hard_filters`، ولا تسأله عنه مرة أخرى أبداً. لا 
+تكتب سؤالاً في حقل `missing_required_question` إلا إذا كانت المعلومة مفقودة تماماً من **كامل سجل المحادثة**.\n🚨 [تنبيه 
+UX للواجهة]: إذا اضطررت لكتابة سؤال في حقل `missing_required_question`، يُمنع منعاً باتاً إرسال السؤال وحده. يجب عليك 
+دائماً أن تقترح 2 أو 3 إجابات منطقية وتضعها في نهاية سؤالك بهذا التنسيق الحرفي: [خيارات: الخيار الأول, الخيار الثاني, 
+الخيار الثالث]. (مثال: 'ما نوع الملابس التي تبحثين عنها؟ [خيارات: فستان, بنطال, بلوزة]').\n";
+lib\features\core\entry_directives.dart:96:      "الآن: رحب به بحماس كخبير أزياء لمتجر ($store)، واطلب منه فوراً وصف 
+قطعته "
+lib\features\core\entry_directives.dart:106:        "المناسبات الملحق بها. مهمتك الآن: اسأله بلباقة وحماس كخبير أزياء 
+لمتجر ($store) "
+lib\features\core\entry_directives.dart:107:        "عن المناسبة التي يستعد لها، لكي تقترح له كيف ينسق قطعته الحالية مع 
+أزياء أخرى "
+lib\features\core\entry_directives.dart:123:        "الجديدة التي يريدها (مثل: قميص كاجوال، فستان ناعم)، وأخبره أنه يمكنه 
+كتابة "
+lib\features\core\entry_directives.dart:126:  return "المستخدم يبدأ جلسة 'البحث الذكي عن الأزياء' بشكل مستقل تماماً. لقد 
+قمنا نحن "
+lib\features\core\plugin_registry.dart:71:///    `makeup_search` — غير قابلةٍ للبلوغ (لا شاشة ولا مسار ولا معترِض للمكياج،
+lib\features\core\manifest\feature_manifest.dart:185:  //    بأزراره — فيُعالَج النقص الجزئيّ بأناقة (الوزن وحده ناقص → 
+أزرار وزنٍ منفردة).
+lib\features\core\manifest\feature_manifest.dart:336:// • boostWeights ديناميكيٌّ بالكامل: مفاتيحه حرّةٌ (أيّ اسم فلتر — 
+occasion للأزياء،
+lib\features\core\manifest\feature_manifest.dart:337://   skin_type للمكياج، brand للإلكترونيّات...). الكود لا يكتب أيّ 
+اسم فلتر؛ يقرأ
+lib\features\info\store\store_info_plugin.dart:11:// │    أخطر بكثيرٍ من قميصٍ غير موفّق — فالرسالة السرّيّة مفرّعةٌ على 
+نجاح         │
+lib\features\info\store\store_info_plugin.dart:184:    //    🔴 شوهد حيّاً: «هل يوجد مثل هذا القميص؟ وأي ساعة تفتحون؟» + 
+صورة.
+lib\features\info\store\store_info_plugin.dart:185:    //       الرؤية حلّلت الصورة وحقنت (category=قميص · color · 
+style)، ثمّ
+lib\features\info\store\store_info_plugin.dart:186:    //       أوقفنا البحث — فضاع عمل الرؤية، ولم يرَ الزبون القميص 
+الموجود فعلاً
+lib\features\info\store\store_info_plugin.dart:247:      "أنّك لا تملك تلك المعلومة واقترح سؤال أحد موظّفي الفرع — ولا 
+تخترعها]\n";
+lib\features\info\store\store_info_plugin.dart:265:        "بلطفٍ عن عدم توفّر هذه المعلومة لديك، واقترح سؤال أحد موظّفي 
+الفرع، "
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:112:    //        مع الإطلالة المعروضة. يحلّ خلل «مكمّلات البنطال» 
+(تيشيرت بديل ⇒ أحذية).
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:258:        // 🎯 [اسأل أم نسّق؟] hasExplicitComplement: حدّد 
+الزبون قطعةً مكمّلةً صريحةً (بنطال)
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:259:    //    تختلف عن المرتكَز (قميص) → نحترمها ونبحث عنها وحدها. 
+shouldAskComplement: دخولٌ
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:271:    //    • المكمّل الصريح («قميص مع حذاء») يبقى محترَمًا: 
+كتلة الخطف أدناه تقرأ
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:272:    //      hasExplicitComplement فتبحث عن الحذاء وحده — تجربة 
+الكتابة الحرّة سليمة.
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:355:        // 🎯 [القرار #3 — أ] نبني دائمًا (لا نسأل). القطعة 
+محدّدة (مكمّلٌ صريح: قميص
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:356:        //    مع حذاء) → نبحث عنها وحدها؛ وإلا (بناءٌ كامل حول 
+المرتكَز) نخطف كلّ المكمّلات.
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:409:          "المذكور في السياق أعلاه فقط، بأسلوب ستايلست محترف 
+ومرحب]\n";
+lib\features\pairing\outfit\outfit_pairing_plugin.dart:429:          "بخبرة الستايلست معتمداً على القطع المعروضة حالياً 
+فقط (🚨 إياك أن "
+lib\features\pairing\outfit\outfit_pairing_service.dart:90:      'قميص': ['بنطلون', 'شورت', 'جينز', 'جاكيت'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:92:      'بنطلون': ['قميص', 'تيشيرت', 'هودي', 'بولو', 'حذاء'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:93:      'جينز': ['تيشيرت', 'قميص', 'هودي', 'جاكيت جلد', 'حذاء 
+رياضي'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:94:      'فستان': ['جاكيت خفيف', 'حذاء كعب', 'حقيبة', 
+'اكسسوارات'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:95:      'تنورة': ['بلوزة', 'قميص', 'تيشيرت'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:96:      'جاكيت': ['تيشيرت', 'قميص', 'جينز', 'بنطلون'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:97:      'شورت': ['تيشيرت', 'قميص صيفي', 'حذاء رياضي'],
+lib\features\pairing\outfit\outfit_pairing_service.dart:119:    return ['حقيبة', 'حذاء', 'اكسسوارات']; // ملحقات عامة 
+كخيار آمن
+lib\features\recommendation\occasion\occasion_recommendation_plugin.dart:213:          "أعلاه، بأسلوب مستشار أناقة 
+لبق]\n";
+lib\features\recommendation\occasion\occasion_recommendation_plugin.dart:220:          "\n[توجيه هذه المرحلة للمستشار: 
+مهمتك أن تؤكّد أناقة اختياره وملاءمته "
+lib\features\recommendation\occasion\occasion_recommendation_plugin.dart:233:          "بخبرة مستشار الأناقة معتمداً على 
+المنتج المعروض حالياً فقط (🚨 إياك "
+lib\features\recommendation\occasion\occasion_recommendation_plugin.dart:244:          "لاقتراح إطلالةٍ أنيقةٍ ومناسبةٍ 
+للمناسبة، بأسلوب مستشار أناقة واثق]\n";
+lib\features\search\fashion\fashion_search_plugin.dart:78:    //    المُميِّز الحتميّ الوحيد هو active_ui_feature: 
+«بنطال» في دور الجسر يأتي بـ
+lib\features\search\fashion\fashion_search_plugin.dart:228:    String secretMessage = "\n🔍 [معلومة من نظام الأزياء]: 
+الزبون فعّل ميزة "
+lib\features\search\fashion\fashion_search_plugin.dart:242:      secretMessage = "\n🔍 [معلومة من نظام الأزياء]: طُلب 
+'البحث المخصص' لكنّ "
+lib\features\search\fashion\fashion_search_plugin.dart:247:          "طرح السؤال المعلّق المذكور في السياق أعلاه فقط، 
+بلباقة وأناقة "
+lib\features\search\fashion\fashion_search_plugin.dart:258:        secretMessage = "\n🗣️ [معلومة من نظام الأزياء]: 
+الزبون يعلّق على "
+lib\features\search\fashion\fashion_search_plugin.dart:267:        secretMessage = "\n🛒 [معلومة من نظام الأزياء]: الزبون 
+حسم اختياره على "
+lib\features\search\fashion\fashion_search_service.dart:67:  /// معالجة وتوحيد فلاتر الأزياء لضمان تطابقها بدقة مع قيم 
+الـ Firestore.
+lib\features\search\makeup\makeup_search_plugin.dart:19:  // 🎯 بحثٌ أمّ لقطاع المكياج: لا صندوق نيّة صريح — يُعرَف بشبكة 
+الأمان (فلاتر +
+lib\features\search\makeup\makeup_search_plugin.dart:80:    // 4) أيوجد فلاتر بحثٍ فعليّة؟ (للمكياج نضيف فلاتره الخاصّة 
+لشبكة الأمان.)
+lib\features\search\makeup\makeup_search_plugin.dart:127:    //    يحوي categories + خرائط المكياج الخاصّة (makeup_types, 
+finishes...).
+lib\features\search\makeup\makeup_search_plugin.dart:152:    String secretMessage = "\n💄 [رسالة سرية من خبير المكياج]: 
+الزبون يبحث في قسم المكياج والتجميل وتمّ ضبط فلاتره وتمريرها للمخزون تلقائياً. تفاعل بحفاوة كخبير تجميل، واعرض له 
+المنتجات المرفقة في الأسفل بثقة ولباقة وفقاً لهوية متجر $storeName!\n";
+lib\features\search\makeup\makeup_search_plugin.dart:157:      secretMessage = "\n💄 [رسالة سرية من خبير المكياج]: هناك 
+سؤال حرج ناقص لفرملة النظام. مهمتك الوحيدة الآن طرح هذا السؤال فقط بلباقة وأناقة لتكملة البيانات: 
+($coreMissingQuestion)\n";
+lib\features\search\makeup\makeup_search_service.dart:6:  ///    نظير fashion، لكن بفلاتر المكياج الخاصّة (نوع المكياج، 
+التشطيب، نوع البشرة...).
+lib\features\search\makeup\makeup_search_service.dart:33:    // 2. الجنس (المكياج غالباً نسائيّ/للجنسين، لكن نُبقي الباب 
+مفتوحاً)
+lib\features\search\makeup\makeup_search_service.dart:44:    // 4. التطهير والتوحيد (واعٍ بفلاتر المكياج الخاصّة)
+lib\features\search\makeup\makeup_search_service.dart:65:  /// معالجة وتوحيد فلاتر المكياج لمطابقة قيم Firestore بدقّة.
+lib\features\search\makeup\makeup_search_service.dart:68:  /// بالمكياج: نوع المكياج (makeup_type)، التشطيب (finish)، نوع 
+البشرة (skin_type)،
+lib\features\search\makeup\makeup_search_service.dart:96:    // 2. توحيد نوع المكياج (makeup_type): شفاه/عيون/وجه/خدود... 
+(واعٍ بالقائمة)
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:28:  //    منتجات. سيناريوها: «ما مقاس القميص؟» أو «أعجبني هذا، ما 
+قياسي؟» — في كليهما
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:48:    //    في دور «بنطال» (اختار القطعة، لم يُعطِ قياساته بعد). 
+لو استيقظ الملحق حينها
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:98:    String extractedCategory = "Shirts";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:131:        if (rawCategory.contains("فستان") || 
+rawCategory.contains("فساتين") || rawCategory.contains("dresses")) {
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:132:          extractedCategory = "Dresses";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:133:        } else if (rawCategory.contains("قميص") || 
+rawCategory.contains("قمصان") || rawCategory.contains("تيشيرت") || rawCategory.contains("بلوزة") || 
+rawCategory.contains("سترة") || rawCategory.contains("shirts")) {
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:134:          extractedCategory = "Shirts";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:135:        } else if (rawCategory.contains("بنطال") || 
+rawCategory.contains("بنطلون") || rawCategory.contains("سروال") || rawCategory.contains("جينز") || 
+rawCategory.contains("شورت") || rawCategory.contains("pants")) {
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:136:          extractedCategory = "Pants";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:137:        } else if (rawCategory.contains("حذاء") || 
+rawCategory.contains("أحذية") || rawCategory.contains("shoes")) {
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:138:          extractedCategory = "Shoes";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:293:          "ستايلستٍ لبقٍ ومرحّب، والـUI عرض المقاس بالفعل]\n";
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:310:      //    فمحرّك البحث (Stage 2) يجري بالفلاتر الموجودة 
+(category=قميص) ما لم يُوقَف
+lib\features\sizing\apparel\apparel_sizing_plugin.dart:311:      //    صراحةً. فهنا نوقفه: سواءٌ سأل الزبون «ما مقاس 
+القميص؟» أو «أعجبني هذا، ما
+lib\features\sizing\apparel\apparel_sizing_service.dart:10:    required String category, // أمثلة: 'Pants', 'Shirts'
+lib\features\sizing\apparel\apparel_sizing_service.dart:38:      // 3. الوصول للفئة (Category) مثل 'Pants'
+lib\features\vision\fashion\fashion_vision_plugin.dart:104:          "تنتمي إلى أنواع الصور المسموحة للمتجر (ليست أزياء 
+أو ملابس أو أحذية "
+lib\features\vision\fashion\fashion_vision_plugin.dart:115:          "أزياء متجر $storeName فقط، واطلب منه بلطفٍ رفع 
+صورةٍ لقطعة ملابسٍ أو "
+lib\features\vision\fashion\fashion_vision_plugin.dart:169:        "الأزياء. القطعة المرفوعة: ($category)، بلون ($color)، 
+بنمط ($pattern) "
+lib\features\vision\fashion\fashion_vision_service.dart:42:          (fashionVisionRules['allowed_categories'] as 
+List<dynamic>?) ?? ["قميص", "بنطال", "فستان", "جاكيت", "تيشيرت", "حذاء", "حقيبة"];
+lib\features\vision\fashion\fashion_vision_service.dart:50:          : 'أزياء، ملابس، أحذية، وإكسسوارات';
+lib\features\vision\fashion\fashion_vision_service.dart:60:أنت خبير أزياء محترف تعمل لدى متجر "$storeName".
+lib\features\vision\fashion\fashion_vision_service.dart:61:مهمتك الأولى هي فحص الصورة للتأكد من أهليتها، ثم استخراج خصائص 
+قطعة الأزياء منها بناءً على معايير المتجر.
+lib\features\vision\fashion\fashion_vision_service.dart:65:إذا كانت الصورة لا تحتوي على أزياء (مثل: سيارة، طعام، فاتورة، 
+حيوان، أو صورة غير واضحة)، يجب أن تكون قيمة "is_valid_image" هي false.
+lib\rag_pipeline\per_product_chips_builder.dart:8:/// (التنسيق: قميص+بنطال+حذاء)، وتُعرَض chip تقفز لميزةٍ أحاديّة 
+القطعة، يصير
+lib\rag_pipeline\per_product_chips_builder.dart:17:///     الغائبة منها = لا نوع لها → لا chip (الحذاء/الإكسسوار). 
+للميزات التي تقبل
+lib\rag_pipeline\per_product_chips_builder.dart:46:      // النوع الفرعيّ للفئة (قميص→apparel). غيابه = لا قياسَ لها → 
+نتخطّاها.
+lib\rag_pipeline\query_understanding_service.dart:208:   - "initial": أول طلب بحث أو استكشاف. (مثال: "بدي فستان").
+lib\rag_pipeline\query_understanding_service.dart:217:   - "build_around" (الافتراض): الزبون يريد **بناء إطلالةٍ حول 
+قطعته الأساسية** أو **إضافة قطعةٍ مكمّلةٍ جديدة** للإطلالة. أمثلة: "لدي بنطال كحلي، ماذا تقترح؟" / "نسّق لي إطلالة حول 
+هذا القميص" / "أضف حذاءً للإطلالة" / "ماذا عن جاكيت أيضاً؟". في كلّ هذه الحالات الزبون يريد **قطعاً من أنواعٍ مكمّلة** 
+(لا من نفس نوع القطعة التي معه).
+lib\rag_pipeline\query_understanding_service.dart:218:   - "replace_item": الزبون **عُرضت عليه قطعةٌ ضمن الإطلالة ويريد 
+استبدالها بأخرى من نفس نوعها** (لون مختلف، تصميم آخر، "غيره"، "بديل"). أمثلة: بعد أن عُرض عليه تيشيرت ضمن الإطلالة يقول 
+"بالنسبة للتيشيرت، هل يوجد لون آخر؟" / "أريد تيشيرتاً مختلفاً" / "بديل لهذا الحذاء". العلامة الحاسمة: الزبون يشير إلى 
+**قطعةٍ معروضةٍ بنوعها ويريد نظيراً لها من نفس النوع**، لا قطعةً مكمّلةً جديدة.
+lib\rag_pipeline\query_understanding_service.dart:227:5. 🚨 [جواب سؤال المستشار — احمل النيّة المعلّقة]: إذا كان **آخر 
+دورٍ في السجلّ سؤالاً من المستشار يطلب توضيحاً** (نوع القطعة، الجنس، خاصيّة ناقصة ليكمل طلباً سابقاً)، فرسالة الزبون 
+التالية **جوابٌ عن ذلك السؤال لا طلبٌ جديدٌ مستقلّ**. مهمّتك: ادمج جواب الزبون مع **النيّة الأصليّة التي دفعت المستشارَ 
+لسؤاله** (المذكورة في رسالة الزبون التي سبقت سؤال المستشار مباشرةً). مثال: إن طلب الزبون "ألواناً أخرى"، فسأله المستشار 
+"عن أيّ نوع منتج؟"، ثمّ أجاب الزبون "بنطال" → استخرج: category=بنطال **مع** حمل نيّة الألوان (ضع إشارة الألوان في 
+soft_filters أو اذكرها في descriptive_text: "بنطال بألوان متنوّعة"). القاعدة تشتعل **فقط** حين يكون الدور الأخير سؤالَ 
+توضيحٍ من المستشار؛ أمّا اقتراحه العاديّ ("وجدت لك قميصاً، هل يعجبك؟") فليس سؤالَ توضيحٍ، فعامِل ردّ الزبون عليه كالمعتاد 
+(refining/discussing/satisfied).
+lib\rag_pipeline\rag_orchestrator_generation.dart:73:    //    (candidateCats تُحسَب ولا تُستعمَل)، فمرّت «لا يوجد 
+منتجات» و«قميص
+lib\rag_pipeline\rag_orchestrator_intent.dart:164:  //    برومبت الاستخراج ليستدلّ الـLLM: «قميص → fashion، أحمر شفاه → 
+makeup».
+lib\rag_pipeline\rag_orchestrator_persist.dart:145:      //    هو القطعة الأصليّة (القميص) التي ضبطها put() صحيحاً، 
+والمعروض هنا
+lib\rag_pipeline\rag_orchestrator_persist.dart:146:      //    مكمّلاتٌ (بنطال/أحذية) لا القطعة — فلا نطمس category/color 
+بأوّل مكمّل.
+lib\rag_pipeline\response_generation_service.dart:439:3. 📸 عرض صور المنتجات (قاعدة حرجة جداً): لعرض صورة منتج، أدرج أسفل 
+وصفه سطراً بتنسيق Markdown هكذا: ![اسم المنتج](@@ID@@) — حيث تضع مكان ID **قيمة حقل "id" الحرفية لذلك المنتج بالضبط** كما 
+وردت في قائمة المنتجات أعلاه (مثال: إذا كان id المنتج هو abc123 فاكتب ![قميص كتان](@@abc123@@)).
+lib\rag_pipeline\response_generation_service.dart:447:اذكر فيه **فئات** المنتجات التي عرضتها فعلاً في ردّك أعلاه (لا كلّ 
+المنتجات الممرّرة لك — فقط ما ذكرته للزبون). مثال: [DISPLAYED: بنطال، حذاء، إكسسوارات].
+lib\rag_pipeline\response_generation_service.dart:461:      "item_type": "قميص",
+lib\rag_pipeline\store_rules_model.dart:368:  //    المختصّة بها (قميص→apparel، وخاتم→ring مستقبلاً). يقرؤها مولّد chips 
+المقاسات
+lib\rag_pipeline\store_rules_model.dart:371:  //    الخريطة = لا نوع مقاسٍ لها (كالحذاء/الإكسسوار) → لا chip قياسٍ لها.
+lib\rag_pipeline\suggested_pieces_resolver.dart:9://   [Suggested Pieces]: from LLM displayed → [قميص نيلي للعمل] 
+(candidates: [قميص])
+lib\rag_pipeline\suggested_pieces_resolver.dart:40:// النموذج يكتب اسم المنتج غالباً («قميص نيلي للعمل») رغم أنّ البرومبت 
+يطلب
+lib\rag_pipeline\suggested_pieces_resolver.dart:41:// **فئات**. والاحتواءُ المطبَّع يكشف أنّه من فئةٍ مرشَّحة («قميص») — 
+فنُخرِج
+lib\rag_pipeline\suggested_pieces_resolver.dart:43://   • «قميص نيلي للعمل» → قميص       (استبدالٌ بالقانونيّ)
+lib\rag_pipeline\suggested_pieces_resolver.dart:94:    //    الاتّجاه عبر matchesAr — يقبل «قميص نيلي للعمل» ضدّ «قميص»، 
+ويتسامح مع
