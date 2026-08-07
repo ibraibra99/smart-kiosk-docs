@@ -39,3 +39,20 @@ dart run tool/audit_store_fields.dart Zara --scan ..\smart_kiosk_app ..\store_ad
 Select-String -Path docs\roadmap\tech_debt.md -Pattern "^- \[ \]"
 
 Select-String -Path docs\roadmap\domain_leaks.md -Pattern "^- \[ \]"
+
+dart analyze 2>&1 | Select-String -Pattern "error|warning"
+
+
+ .\deploy.ps1
+    gcloud run deploy kiosk-backend --source build --region us-central1 --service-account vertex-vision-kiosk@gen-lang-client-0796657773.iam.gserviceaccount.com --set-env-vars "GCP_PROJECT_ID=gen-lang-client-0796657773,LOG_FORMAT=json,LOG_REDACT=true" --set-secrets "GEMINI_API_KEY=GEMINI_API_KEY:latest,SYNC_SECRET=SYNC_SECRET:latest,GOOGLE_SERVICE_ACCOUNT_JSON=GOOGLE_SERVICE_ACCOUNT_JSON:latest" --no-cpu-throttling --min-instances 0 --max-instances 3 --memory 1Gi --timeout 300 --allow-unauthenticated
+
+
+    curl.exe https://kiosk-backend-592790691603.us-central1.run.app/health
+
+
+gcloud run services update-traffic kiosk-backend --region us-central1 --to-revisions اسم-المراجعة=100
+
+					$env:PYTHONIOENCODING = "utf-8"
+					$env:PYTHONUTF8 = "1"
+					gcloud alpha logging tail "resource.labels.service_name=kiosk-backend" --format="value(timestamp,jsonPayload.message,textPayload)"
+
