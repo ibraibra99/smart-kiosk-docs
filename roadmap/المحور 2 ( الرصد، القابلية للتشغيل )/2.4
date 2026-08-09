@@ -1,61 +1,12 @@
-2.4 — search_logs بلا session_id — تحليلاتٌ غير قابلةٍ للربط
+2.4 — حقولٌ تحليليّةٌ في search_logs
 
-الشدّة: 🟡 متوسط — قدرةٌ مفقودة.
-الفصل: 2.x (الرصد، بجانب 2.3 القياسات).
+أُضيفت في `_persistTurn` (صفر I/O إضافيّ، ومتوافقةٌ خلفيّاً):
+  `session_id` (في معرّف الوثيقة) · `response_owner` · `active_ui_feature`
+  · `bypass_search` · و`failure_kind` عند الفشل.
 
-الحالة
+🔑 **وأنفعها `response_owner`**: يكشف **من شكّل الردّ فعلاً** بخلاف
+   `feature_used` (اسم الشاشة). ويتطابقان غالباً — وافتراقُهما يكشف
+   «أيّ ميزةٍ استيقظت خطأً»، وهو بُعدٌ لم يكن مرصوداً.
 
-حقول search_logs: created_at · extracted_filters · has_image · raw_query ·
-results_count · top_match_name. لا session_id ولا user_id.
+📌 وأعمدة Rowy تُضاف يدويّاً: الحقل يُكتَب في Firestore ولا يظهر بلا عمود.
 
-بينما sessionId متاحٌ في المايسترو ويُمرَّر إلى _persistTurn فعلاً، و
-chat_session_service قائمٌ منذ البداية. فالمعلومة موجودةٌ ولا تُكتَب.
-
-الأثر
-
-أسئلةٌ لا يستطيع admin_analytics_engine الإجابة عنها اليوم:
-• كم دوراً في الجلسة الواحدة؟ وأين تنقطع؟
-• ما نسبة التسرّب بعد سؤال precondition؟
-• أيّ تسلسلٍ للميزات يقود إلى satisfied؟
-• كم مرّةً أُوقِف البحث (bypass) ومن أوقفه؟
-
-الإصلاح المقترح
-
-حقولٌ اختياريّةٌ جديدة تُكتَب في _persistTurn (كلّها متاحةٌ في نقطة الاستدعاء —
-صفر I/O إضافيّ):
-
-
-الحقل
-المصدر
-
-session_id
-وسيط _persistTurn
-
-turn_index
-عدّاد الجلسة في session_context (موجودٌ لسياسة التوطيد)
-
-response_owner
-responseOwnerKey
-
-active_ui_feature
-rawUiFeature
-
-bypass_search
-shouldBypassSearch
-
-failure_kind
-_failure_kind عند الفشل
-
-
-
-كلّها إضافاتٌ متوافقةٌ خلفياً (لوحة التحكّم تتجاهل ما لا تعرفه).
-
-⚠️ ملاحظة خصوصيّة
-
-raw_query نصّ زبونٍ خام، وإضافة session_id تجعله قابلاً للربط عبر الأدوار.
-يستحقّ سياسة احتفاظٍ صريحة (حذفٌ تلقائيٌّ بعد N يوماً) في نفس الجولة.
-
-معيار الإنجاز
-
-استعلامٌ واحدٌ يُخرِج رحلة جلسةٍ كاملة مرتّبةً · لوحة التحكّم تعرض متوسّط الأدوار
-ونقطة الانقطاع.
