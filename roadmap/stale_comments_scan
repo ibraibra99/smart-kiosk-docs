@@ -1,0 +1,214 @@
+PS C:\Users\User\kiosk_backend> dart run tool/stale_comments_scan.dart
+   🚨 **لم يُمسَح إلّا الخادم** — معرّفاتٌ حيّةٌ في تطبيقَي
+      الزبون والإدارة ستظهر كاذبةً. أعِد التشغيل مع:
+      --scan ../smart_kiosk_app ../store_admin_panel
+
+🔎 كشفُ المراجع الميّتة في التعليقات
+
+   102 ملفّ Dart · أدنى طولٍ للمعرّف: 6
+
+═══ 🔴 مراجعُ في تعليقاتٍ بلا وجودٍ في الكود (65) ═══
+
+  📄 lib/features/core/manifest/feature_manifest.dart
+        25 · menu_pairings
+           « خاص بالمجال (category_pairing، menu_pairings...) — حرّ الشكل عمداً »
+        47 · fromConfig
+           « factory FeatureManifest.fromConfig(Map<String, dynamic> node) { ... } »
+       139 · on_entry_state
+           « ملاحظة: on_entry_state أُزيل — كان بلا مستهلكٍ خلفيّ، واستعماله في الواجهة (حشره »
+       172 · options_source
+           « 📍 الحقول الواصفة للشكل (control/question/options/options_source/note) حُذِفت: »
+       173 · context_sheet
+           « الشكل المخصّص لجمع الـpreconditions يصنعه context_sheet (widgetٌ خاصٌّ بكلّ ميزة، »
+       176 · context_sheet
+           « حيٌّ: تقرؤه الخدمة للمسار الحواريّ (حين يُجمَع الناقص عبر الحوار لا الـcontext_sheet). »
+       298 · plugin_data_keys
+           « 📍 plugin_data_keys (الدرع) حُذِف: كان قائمة سماحٍ تحذف صناديق plugin_data غير »
+       316 · reserve_table
+           « suggest_outfit | add_to_cart | reserve_table... »
+       334 · soft_filter
+           « • الغرض الفاعل: boostWeights تحدّد، لكلّ فلترٍ مرنٍ (soft_filter)، كم نقطةً يُضاف »
+       347 · category_source
+           « • params: حقلٌ حرّ (category_source, color_boost_source...) — توثيقيٌّ للاستراتيجية. »
+       347 · color_boost_source
+           « • params: حقلٌ حرّ (category_source, color_boost_source...) — توثيقيٌّ للاستراتيجية. »
+       351 · hijack_complementary
+           « hijack_complementary | standard | distance_rating... »
+       351 · distance_rating
+           « hijack_complementary | standard | distance_rating... »
+       353 · soft_filter
+           « ⭐ فاعل: {soft_filter: وزن} — مفاتيح حرّة (أيّ فلتر). الترجيح في candidate_processing. غياب… »
+       387 · next_features
+           « ملاحظة: next_features أُزيل — كان خاملاً مكرَّراً مع أزرار trigger_feature، بلا قارئ. »
+       456 · triggerInstantMessage
+           « يستهلكه: الواجهة (triggerInstantMessage، شاشة التحميل) »
+
+  📄 lib/features/core/manifest/feature_manifest_loader.dart
+       304 · resolvedValues
+           « عبر resolvedValues المفهرسة بأسماء v1 (preferred_color / target_item). فإخراجنا بالأسماء »
+       333 · resolvedValues
+           « (خدمة التنسيق تطابق اللون عبر resolvedValues['preferred_color'].) يُحذف عند تحديث الخدمة. »
+       340 · plugin_data_keys
+           « plugin_data_keys (الدرع) حُذِف — استبدله حارس النيّة في المايسترو (بلا قارئ). »
+       386 · category_source
+           « category_source, color_boost_source... »
+       386 · color_boost_source
+           « category_source, color_boost_source... »
+       445 · next_features
+           « next_features أُزيل — كان خاملاً مكرَّراً مع أزرار trigger_feature، بلا قارئ. »
+
+  📄 lib/rag_pipeline/rag_orchestrator.dart
+       247 · failure_policies
+           « السياسة الكاملة: docs/failure_policies.md §2 »
+       530 · allKnown
+           « كتلة الاستعادة لاحقاً أيضاً — pluginBucketKey). الكشف القرائيّ (allKnown + »
+       531 · activeScreen
+           « activeScreen + detected + protected) نُقل إلى _detectIntents (لا يُعدّل »
+       885 · secretMessages
+           « (تراكم secretMessages) يُلحَق هنا — مكافئٌ للإلحاق أثناء الحلقة (لا »
+      1080 · context_sheet
+           « المتجر» التي كان context_sheet يعرضها. فارغةٌ في bypass (لا topProducts) → »
+
+  📄 lib/features/core/manifest/manifest_validator.dart
+        48 · global_ai_behaviors
+           « global_ai_behaviors — الطرف الحيّ للحوكمة. featureBehaviorMap صارت مشتقّةً »
+       307 · triggerInstantMessage
+           « الحكم من الكود لا التوثيق: triggerInstantMessage (الفرونت) ملّاحٌ أعمى يمشي »
+       495 · global_ai_behaviors
+           « ── القاعدة (11): ميزةٌ نشطة بلا سلوكٍ في global_ai_behaviors ─────────────── »
+
+  📄 lib/rag_pipeline/response_owner_resolver.dart
+        36 · active_feature
+           « • behaviorMap    : active_feature → [مفاتيح family_sub]. جسر الترجمة بين »
+        59 · clearChat
+           « والسبب أنّ active_ui_feature **لاصقٌ حتى clearChat**: فمن ضغط «احسب »
+        90 · active_feature
+           « 🌉 active_feature → مفاتيح السلوك (family_sub). يجرّب صيغ التسمية الثلاث (نظير »
+
+  📄 lib/storefront/public_store_service.dart
+        11 · search_keywords
+           « hard_filters · soft_filters · search_keywords · total_searches · »
+        59 · featureSection
+           « / loading_screens) التي تقرؤها `featureSection` في الواجهة. »
+       124 · featureSection
+           « مركَّباً كما كانت تبنيه بنفسها. صفر تغييرٍ في featureSection. »
+
+  📄 routes/api/products/embed.dart
+         7 · derivativeFn
+           « يحلّ محلّ derivativeFn في Rowy »
+        19 · update_vector
+           « لا سرَّ مشترَكٌ هنا (بخلاف /webhook/update_vector القديم): المستدعي »
+        98 · ownsStore
+           « ⏰ [مقترَح — لا يقع اليوم] فحصُ ملكيّةٍ نظير ownsStore(userId, storeId) »
+
+  📄 lib/customer/services/customer_memory_service.dart
+        16 · readEnabled
+           « / 📍 **تغييرٌ جوهريٌّ عن السابق**: كانت تُرجِع `readEnabled`/`writeEnabled` »
+        17 · readEnabled
+           « /    **محلولَين** بافتراضاتٍ مثبَّتةٍ فيها (`readEnabled = true` بلا تصريح، »
+
+  📄 lib/rag_pipeline/embedding_writer.dart
+         9 · derivativeFn
+           « كان التوليد في `derivativeFn` داخل Rowy — كودٌ **خارج الريبو**: لا يمسّه CI، »
+        22 · derivativeFn
+           « • مصدرُ أسرارٍ واحد (المفتاح والسرّ كانا مكتوبين حرفيّاً في derivativeFn) »
+
+  📄 lib/rag_pipeline/rag_orchestrator_plugins.dart
+         8 · secretMessages
+           « المالك، ونصّ contextAppend (تراكم secretMessages) ليُلحقه الجسم »
+        48 · secretMessages
+           « تراكم secretMessages — كان يُلحَق مباشرةً بـfullContextForAI؛ الجسم يُلحقه. »
+
+  📄 lib/rag_pipeline/store_rules_model.dart
+        39 · working_hours
+           « /    وقد أنتجت عطباً مشاهَداً: الواجهة كانت تُلحق `working_hours` بها، فوصل »
+       410 · featurePriority
+           « فارغة (لا ينكسر متجرٌ قديم)، تماماً كـsectorCategories/featurePriority. »
+
+  📄 lib/analytics/reporting/admin_analytics_engine.dart
+       160 · core_item
+           « 🔑 [1.25] target_item لا core_item — الأخير لا وجود له في أيّ »
+
+  📄 lib/core/firestore_client.dart
+        16 · firebase_options
+           « (يُشحَن داخل تطبيق Flutter في firebase_options.dart). »
+
+  📄 lib/features/core/feature_plugin.dart
+        89 · rootKey
+           « /    المايسترو يقرأ هذا الإعلان ويطبّع: يرفع أيّ rootKey من plugin_data للجذر »
+
+  📄 lib/features/core/plugin_helpers.dart
+        21 · snake_case
+           « ① chipToMap — Chip المُصنّف → Map بحقول Rowy (snake_case) التي تتوقّعها الواجهة. »
+
+  📄 lib/rag_pipeline/per_product_chips_builder.dart
+        64 · context_sheet
+           « 📦 payload: الفئة (تُحقَن في الميزة الهدف) + skip_intro لتخطّي context_sheet »
+
+  📄 lib/rag_pipeline/rag_orchestrator_restore.dart
+       117 · hard_filters_keys
+           « مكتوبة. والمقروء سابقاً `storeConfig['hard_filters_keys']` **لا وجود »
+
+  📄 lib/rag_pipeline/response_generation_service.dart
+       407 · snake_case
+           « `imageUrl` (camelCase) و`image_url` (snake_case)، ويُرجَّح أنّ رافع الصور »
+
+  📄 lib/rag_pipeline/suggested_pieces_resolver.dart
+        16 · isBridge
+           « if (!isBridge && suggestedPieces.length == 1) { »
+
+  📄 lib/services/cache_service.dart
+         9 · update_vector
+           « كان التصميم يعتمد على **التطهير الفوريّ** عبر `/webhook/update_vector`: »
+
+  📄 lib/services/rate_limiter.dart
+        99 · image_service
+           « /    ومضغوطةٍ (800×800 · جودة 70 — نمط image_service) = ~15م.ب. »
+
+  📄 lib/storefront/embedding_sync.dart
+        14 · working_hours
+           « يتخطّى الحارس بصمت**. نظير `working_hours` (مصدران انحرفا) ونظير »
+
+  📄 lib/storefront/product_writer.dart
+       342 · update_vector
+           « / 🔴 عطبٌ أُدخِل بحذف `/webhook/update_vector`: كان الويبهوك يستدعي »
+
+  📄 routes/api/admin/product-schema.dart
+        16 · dynamic_context_sheet
+           « `dynamic_context_sheet` [1.23] في تطبيق الزبون: العقد يختار والكود يرسم. »
+
+  📄 routes/api/admin/products/index.dart
+         8 · home_screen
+           « يحلّ محلّ StreamBuilder في home_screen »
+
+  📄 routes/api/admin/products/[id].dart
+        10 · ownedStoreId
+           « يُبنى تحت `stores/{ownedStoreId}/products/{id}` — فمنتجُ متجرٍ آخر »
+
+  📄 routes/api/admin/store.dart
+         7 · home_screen
+           « يحلّ محلّ قراءة `home_screen` من Firestore مباشرةً »
+
+  📄 routes/api/stores/config.dart
+         6 · fetchStoreMetadata
+           « يحلّ محلّ `fetchStoreMetadata()` + `_mergeFeatureSubcollection()` في »
+
+  📄 routes/api/stores/index.dart
+         6 · fetchAllStores
+           « يحلّ محلّ `StoreProvider.fetchAllStores()` الذي كان يقرأ Firestore مباشرةً »
+
+═══ 📊 معلوماتٌ ثانويّة ═══
+   نسبة الشرح إلى الكود: 59٪ (**لا تُنذِر** — انظر رأس الملفّ)
+   سطورٌ تاريخيّةٌ استُثنيت: 93 (شغّل --all لتضمينها)
+   ومعرّفاتٌ خارجيّةٌ معلَنة: 7 (وسومُ linter · واجهاتُ Firebase) — انظر _knownExternal.
+
+⚠️ وما لا تكشفه: تعليقٌ كاذبٌ **بلا معرّفٍ برمجيّ**
+   («هذه الدالّة تعيد المتّجه الصوريّ» وهي لا تفعل).
+   ⇒ قائمةٌ فارغة تعني «لا مرجعَ ميّتاً»، لا «لا تعليقَ كاذباً».
+   ⏰ وفصيلةٌ ثانيةٌ تُضاف حين يظهر عطبٌ منها — لا استباقاً.
+
+📖 قبل تعديل أيّ تعليقٍ من القائمة:
+  1. اقرأ السطر — أهو **وصفٌ لسلوكٍ قائم** أم توثيقٌ لما كان؟
+  2. إن كان تاريخياً، أضِف وسماً (📜) بدل تعديل الأداة.
+  3. وإن كان يصف سلوكاً: **تحقّق من الكود** — فقد يكون
+     العطب في الكود لا في التعليق (وهذا ما وقع في 5.14).
