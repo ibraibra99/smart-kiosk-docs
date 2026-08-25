@@ -10,6 +10,7 @@
 
 ### 🔬 الدليل
 
+
 ```dart
 // admin_analytics_engine.dart — analyzeLogs
 final bool isSearchFeature = feature.endsWith('_search');   // [1.37]
