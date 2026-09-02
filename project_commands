@@ -65,7 +65,6 @@ Get-ChildItem -Path lib,routes -Filter *.dart -Recurse |
 
 flutter test
 
-
 .\tool\test_all.ps1 -SkipApp
 
 
