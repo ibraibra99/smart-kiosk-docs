@@ -57,3 +57,16 @@ gcloud run services update-traffic kiosk-backend --region us-central1 --to-revis
 					$env:PYTHONUTF8 = "1"
 					gcloud alpha logging tail "resource.labels.service_name=kiosk-backend" --format="value(timestamp,jsonPayload.message,textPayload)"
 
+
+Get-ChildItem -Path lib,routes -Filter *.dart -Recurse |
+  Select-Object @{n='Lines';e={(Get-Content $_.FullName).Count}}, Name |
+  Sort-Object Lines -Descending | Select-Object -First 15
+
+
+flutter test
+
+
+
+.\tool\test_all.ps1 -SkipApp
+
+
