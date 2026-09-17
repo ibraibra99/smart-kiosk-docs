@@ -1,4 +1,4 @@
-5.23 —اختيار المتجر في llm_eval
+5.23 — اختيار المتجر في llm_eval
 
 • 🔬 الدليل: tool/llm_eval.dart يثبّت kStoreName='Zara' وkStoreType='fashion,makeup'
   وkExpectedFields=[category, gender] كثوابت، ويمررها إلى getStoreRules
