@@ -208,3 +208,65 @@ lib\rag_pipeline\suggested_pieces_resolver.dart:41:// **فئات**. والاحت
 lib\rag_pipeline\suggested_pieces_resolver.dart:43://   • «قميص نيلي للعمل» → قميص       (استبدالٌ بالقانونيّ)
 lib\rag_pipeline\suggested_pieces_resolver.dart:94:    //    الاتّجاه عبر matchesAr — يقبل «قميص نيلي للعمل» ضدّ «قميص»، 
 ويتسامح مع
+
+
+
+## lib/rag_pipeline
+
+rag_orchestrator_restore.dart:52 — isPairingFeature = rawUiFeature.contains(
+  'outfit'|'pairing') + عقد consumes احتياطيّ مطابق لعقد التنسيق. يقرأ الشاشة
+  حيث يجب المانيفست. 🔬 [قياس قبل الحذف]: هل يُبلَغ الفرع على fixture zara؟
+  ميّت ⇒ حذف. حيّ ⇒ الحالة التي تُبلغه هي العطب، تُعالَج أوّلاً.
+
+rag_orchestrator_persist.dart:105 — pluginData['outfit_pairing'] + put يدويّة
+  لخمسة حقول أزياء (category·gender·color·style·occasion). البديل قائم في
+  العقد: consumes.*.from_source. 🔬 [قياس قبل الحذف]: مقارنة ناتج put اليدويّة
+  بناتج from_source وحده على عقود الميزات السبع.
+
+rag_orchestrator_handoff.dart:78,117,150,177 · slot_confirmation.dart —
+  'category' ثابتةٌ بوصفها «القطعة». البديل قائم: product_anchor.piece_slot.
+  ⚠️ تغييرُ سلوكٍ لميزةٍ لا تعلن product_anchor — ليس نقلاً.
+
+rag_orchestrator_handoff.dart:84,129 — 'target_item' اسمُ المرتكز في أيّ
+  صندوق ملحق. البديل قائم: product_anchor.slots.<slot>.write_to.
+
+preconditions_resolver.dart — (أ) kGuessable='category'. (ب)
+  _kVisionProducedSlots ثابتة + src.contains('vision')؛ البديل: produces في
+  مانيفست الميزة المستترة. (ج) fallbackQuestion و_slotArabicLabel بنصوص أزياء
+  («رجالي أم نسائي؟»)؛ البديل قائم: slots_ui.secret_prompt / sheet_label،
+  والاحتياطيّ يصير محايداً.
+
+rag_orchestrator_restore.dart:264 — «باللون/بستايل/لمناسبة» لنكهة نصّ التضمين.
+  ⚠️ يدخل نصّ التضمين ⇒ تغييره يغيّر الترتيب؛ يُقاس بـranking_probe.
+
+تدفّق FS-33 (خمس مراحل + المايسترو + ثلاثة سياقات + startsWith('search_')×7)
+  — 🚫 لا يُنظَّف في الجولة. انظر [5.A].
+
+'classic_search' — extraction:123 · feature_setup:35 ·
+  admin_analytics_engine:157 — انظر [1.55].
+
+## lib/features/core
+
+entry_directives.dart:75 — switch على أربع ميزات + قوالب برومبت بالعربيّة.
+  انظر [5.16]. ⚠️ نصٌّ تشغيليّ ⇒ llm_eval.
+
+manifest/feature_manifest_loader.dart:51,458 ('sizing_rules') · :87-101
+  (_legacyCanonical/_legacyType بحقول أزياء) — جسور الشكل القديم، شرط
+  إزالتها مكتوبٌ في الملفّ (الطور 3). 🔬 [قياس قبل الحذف]: هل بقيت وثيقةٌ
+  في أيّ متجر تحمل entry_contract أو knowledge_base أو sizing_rules؟
+
+## خارجهما
+
+analytics/reporting/admin_analytics_engine.dart:229,238,277-281 — تفرّعٌ على
+  'occasion_recommendation' و'outfit_pairing' ومفاتيح تقريرٍ باسميهما.
+  🧭 [قرار تصميميّ]: المفاتيح عقدٌ مع تطبيق Admin ⇒ يمسّ تطبيقين. بديلٌ
+  محتمل: أبعاد التقرير تُعلَن في عقد الميزة. لا يُنظَّف في الجولة.
+
+routes/api/stores/products.dart:39 — مسارٌ عامّ يستورد catalog_browse_service.
+  ❓ أيعمل المسار إن عُطّلت browse/catalog؟ وهل موضع الخدمة storefront؟
+
+customer/services/memory_consolidation_service.dart:67 — مثالٌ قطاعيّ
+  ("occasional_styles": ["رسمي"]) في برومبت. ⚠️ نصٌّ تشغيليّ ⇒ يُقاس.
+
+storefront/product_schema.dart (fallback) — موثَّقٌ مقصود (لقطة 2026-08-18).
+  لا إجراء.
