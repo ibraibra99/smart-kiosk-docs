@@ -1,46 +1,37 @@
 taskkill /F /IM dart.exe
 
-dart_frog dev --hostname 0.0.0.0
-
-ngrok http 8080
 
 tree /F lib  
 
+
 ctrl+ shift + f
 
-tree /F /A > tree.txt
-
-dart test test/rag_pipeline/semantic_cluster_expander_test.dart
 
 dart test
 
-git --no-pager diff --color-moved=zebra -w -- lib/rag_pipeline/rag_orchestrator.dart
 
-dart analyze
+dart test test/rag_pipeline/semantic_cluster_expander_test.dart
 
-dart analyze 2>&1 | Select-String -Pattern "error"
+
+dart analyze 2>&1 | Select-String -Pattern "error|warning"
+
 
 dart run tool/llm_eval.dart
 
+
 dart run tool/llm_eval.dart 10
+
 
 flutter analyze
 
-dart run tool/export_store_fixture.dart
-
-http://localhost:8080/health
-
-dart run tool/list_models.dart
 
 dart run tool/prompt_budget.dart Zara
 
-dart run tool/audit_store_fields.dart Zara --scan ..\smart_kiosk_app ..\store_admin_panel
 
 Select-String -Path docs\roadmap\tech_debt.md -Pattern "^- \[ \]"
 
-Select-String -Path docs\roadmap\domain_leaks.md -Pattern "^- \[ \]"
 
-dart analyze 2>&1 | Select-String -Pattern "error|warning"
+Select-String -Path docs\roadmap\domain_leaks.md -Pattern "^- \[ \]"
 
 
  .\deploy.ps1
@@ -65,6 +56,45 @@ Get-ChildItem -Path lib,routes -Filter *.dart -Recurse |
 
 flutter test
 
+
 .\tool\test_all.ps1 -SkipApp
 
 
+dart_frog build
+if ($LASTEXITCODE -ne 0) {
+    throw "فشل البناء؛ لا تتابع النشر."
+}
+
+
+C:\Users\User\update_packages_v1
+
+
+$bundle = 'C:\Users\User\update_packages_v1'
+.\tool\apply_update.ps1 -PackagePath $bundle -CheckOnly
+
+.\tool\apply_update.ps1 -PackagePath $bundle
+
+
+.\tool\export_context.ps1 -Files @(
+    'lib/features/flows/fashion_search_apparel_sizing_flow.dart'
+    'test/lib/features/flows/fashion_search_apparel_sizing_flow_test.dart'
+    'docs/update_packages.md'
+
+
+$testFiles = @(
+    Get-ChildItem -LiteralPath '.\test' -Recurse -File -Filter '*_test.dart' |
+        Where-Object {
+            $_.FullName -notmatch '[\\/]test[\\/]tool[\\/]dialog_eval[\\/]'
+        } |
+        ForEach-Object { $_.FullName }
+)
+
+if ($testFiles.Count -gt 0) {
+    dart test @testFiles
+}
+
+
+foreach ($d in 'lib','routes','tool','test') {
+  $files = Get-ChildItem $d -Recurse -File -Include *.dart,*.ps1
+  $lines = ($files | Get-Content | Measure-Object -Line).Lines
+  '{0,-8} {1,5} files  {2,8} lines' -f $d, $files.Count, $lines
