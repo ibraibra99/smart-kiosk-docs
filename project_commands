@@ -81,20 +81,38 @@ $bundle = 'C:\Users\User\update_packages_v1'
     'docs/update_packages.md'
 
 
-$testFiles = @(
-    Get-ChildItem -LiteralPath '.\test' -Recurse -File -Filter '*_test.dart' |
-        Where-Object {
-            $_.FullName -notmatch '[\\/]test[\\/]tool[\\/]dialog_eval[\\/]'
-        } |
-        ForEach-Object { $_.FullName }
-)
-
-if ($testFiles.Count -gt 0) {
-    dart test @testFiles
-}
-
-
 foreach ($d in 'lib','routes','tool','test') {
   $files = Get-ChildItem $d -Recurse -File -Include *.dart,*.ps1
   $lines = ($files | Get-Content | Measure-Object -Line).Lines
   '{0,-8} {1,5} files  {2,8} lines' -f $d, $files.Count, $lines
+
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [Console]::OutputEncoding
+
+$logPath = Join-Path (Get-Location).Path 'test_output_utf8.txt'
+$utf8 = [System.Text.UTF8Encoding]::new($false)
+$writer = [System.IO.StreamWriter]::new($logPath, $false, $utf8)
+$previousErrorAction = $ErrorActionPreference
+$testExitCode = $null
+
+try {
+    $ErrorActionPreference = 'Continue'
+
+    & dart test --reporter expanded --chain-stack-traces 2>&1 |
+        ForEach-Object {
+            $line = $_.ToString()
+            $writer.WriteLine($line)
+            $writer.Flush()
+            Write-Host $line
+        }
+
+    $testExitCode = $LASTEXITCODE
+}
+finally {
+    $writer.Dispose()
+    $ErrorActionPreference = $previousErrorAction
+}
+
+Write-Host "Exit code: $testExitCode"
+Write-Host "Saved: $logPath"
+
