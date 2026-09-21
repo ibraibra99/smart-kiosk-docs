@@ -99,6 +99,7 @@ foreach ($d in 'lib','routes','tool','test') {
   $lines = ($files | Get-Content | Measure-Object -Line).Lines
   '{0,-8} {1,5} files  {2,8} lines' -f $d, $files.Count, $lines
 
+
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $OutputEncoding = [Console]::OutputEncoding
 
