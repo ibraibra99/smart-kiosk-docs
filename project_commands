@@ -16,10 +16,10 @@ dart test test/rag_pipeline/semantic_cluster_expander_test.dart
 dart analyze 2>&1 | Select-String -Pattern "error|warning"
 
 
-dart run tool/llm_eval.dart
+dart run tool/llm_eval/llm_eval.dart
 
 
-dart run tool/llm_eval.dart 10
+dart run tool/llm_eval/llm_eval.dart 10
 
 
 flutter analyze
